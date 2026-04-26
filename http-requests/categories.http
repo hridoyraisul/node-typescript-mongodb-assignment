@@ -1,0 +1,63 @@
+@baseUrl = http://localhost:3000/api
+
+###
+# 1. Create a Root Category (Electronics)
+# @name createRootCategory
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Electronics"
+}
+
+###
+# 2. Create a Sub Category (Accessories - using parentId from previous response)
+# Replace the parentId with the actual ID returned from the first request
+# @name createSubCategory
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Accessories",
+  "parentId": "69ed95ac7d3d0ae0080ece5d" 
+}
+
+###
+# 3. Create another Sub Category (Wearable Accessories)
+# Replace the parentId with the ID of "Accessories"
+# @name createNestedSubCategory
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Wearable Accessories",
+  "parentId": "69ed95f27d3d0ae0080ece64"
+}
+
+###
+# 4. Get All Active Categories
+# @name getCategories
+GET {{baseUrl}}/categories
+
+###
+# 5. Get Category By ID (Shows parent hierarchy)
+# Replace the ID with a specific Category ID
+# @name getCategoryById
+GET {{baseUrl}}/categories/60a7c4f4b1e4c9b9f8f4a1a4
+
+###
+# 6. Update a Category
+# Replace the ID with a specific Category ID
+# @name updateCategory
+PUT {{baseUrl}}/categories/60a7c4f4b1e4c9b9f8f4a1a4
+Content-Type: application/json
+
+{
+  "name": "Smart Watches"
+}
+
+###
+# 7. Deactivate a Category (Also deactivates all nested children)
+# Replace the ID with the Root or Parent Category ID to see cascading deactivation
+# @name deactivateCategory
+PATCH {{baseUrl}}/categories/60a7c4f4b1e4c9b9f8f4a1a2/deactivate
